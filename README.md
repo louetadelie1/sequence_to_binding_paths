@@ -7,7 +7,7 @@ Code and processed data for:
 Intrinsically disordered proteins (IDPs) don't have a stable pocket, so small molecules tend to bind them through a "dynamic shuttling" mechanism: the ligand diffuses over the surface and makes many weak, transient contacts instead of sitting in one site. We describe this as a binding path, a network of residue triplet states, each with an equilibrium population (p_eq) obtained from a Markov State Model built on MD.
 
   <p align="center">
-    <img src="images/diffusion_schema.png" width="80%">
+    <img src="images/diffusion_schema.png" width="60%">
   </p>
 
 This repo contains an MLP that predicts p_eq for residue triplets **from sequence alone** (ESM-2 embeddings + Boltz-2 predicted CA distances), and the pipeline that clusters the top triplets into pockets along the binding path and connects them into a network. No reference structure or trajectory frame is needed, so predictions are frame independent.
@@ -21,6 +21,9 @@ This repo contains an MLP that predicts p_eq for residue triplets **from sequenc
 5. **Pockets**: top triplets are hierarchically clustered on spatial distance, chemistry (Kyte-Doolittle hydrophobicity, H-bond donors/acceptors, charge) and score similarity. A knee cutoff on the summed cluster score keeps the clusters that make up the binding path.
 6. **Network**: triplets sharing at least one residue are linked, weighted by the harmonic mean of their predicted populations, giving a pocket-level binding path graph.
 
+  <p align="center">
+    <img src="images/md_mlp_network.png" width="60%">
+  </p>
 ## Repository layout
 
 ```
